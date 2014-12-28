@@ -34,29 +34,27 @@ from runner.koan import *
 
 def score(dice):
     sum = 0
-    dice_set = dice
-    if dice == [5]:
-        return 50
-    if dice == [1]:
-        return 100
-    for d in dice_set:
-        if d == 1:
-            sum += 100
-        if d == 5:
-            sum += 50
-    if dice_set == [1, 1, 1]:
-        return 1000
-    if dice_set == [2, 2, 2]:
-        return 200
-    if dice_set == [3, 3, 3]:
-        return 300
-    if dice_set == [4, 4, 4]:
-        return 400
-    if dice_set == [5, 5, 5]:
-        return 500
-    if dice_set == [6, 6, 6]:
-        return 600
-    total = x for x in dice_set
+
+    if len(dice) == 0:
+        return sum
+
+    if dice.count(5) <= 2:
+        sum += dice.count(5) * 50
+    elif dice.count(5) > 3:
+        sum += (dice.count(5) - 3) * 50
+
+    if dice.count(1) >= 3:
+        sum += 1000
+        
+    if dice.count(1) <= 2:
+        sum += dice.count(1) * 100
+    elif dice.count(1) > 3:
+        sum += (dice.count(1) - 3) * 100
+
+    for x in range(2,7):
+        if dice.count(x) >= 3:
+            sum += x * 100
+
     return sum
 
 class AboutScoringProject(Koan):
